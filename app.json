@@ -25,11 +25,13 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "Amar-mechsim"
+
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
+
       },
       "package": "com.matar153.Amar_mechsim"
     },

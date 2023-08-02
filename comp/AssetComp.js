@@ -274,7 +274,7 @@ function AssetComp({ route, navigation }) {
           <Text style={{ fontSize: 18, fontWeight: 'bold', paddingTop: 10, paddingLeft: 10 }}>חוזה עד: {route.params.asset.rentF ? route.params.asset.rentF : "לא הוכנס תאריך"}</Text>
 
         </View>
-        <View style={{ flexDirection: "row", justifyContent: "center", paddingTop: 10 }}>
+        <View style={{ flexDirection: "row", justifyContent: "center", paddingTop: 10,marginBottom:20 }}>
 
           {route.params.asset.furniture.length > 0 ?
             <Pressable
