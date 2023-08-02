@@ -1,5 +1,5 @@
 
-import { View, Text, StyleSheet, Pressable, TextInput, Button, TouchableOpacity, SafeAreaView, Modal, Dimensions, Alert } from "react-native";
+import { View, Text, StyleSheet, Platform, TextInput, Button, TouchableOpacity, SafeAreaView, Modal, Dimensions, Alert } from "react-native";
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import axios from 'axios';
@@ -28,7 +28,7 @@ function AddF2Comp(props) {
             if (newEx.name == '' || newEx.price == 0) {
                 Alert.alert('נא למלא את כל השדות')
             } else {
-                const data = { ...asset2 }  
+                const data = { ...asset2 }
                 const newexpenses = [...asset2.expenses2]
                 newexpenses[index] = {
                     ...newexpenses[index],
@@ -41,11 +41,12 @@ function AddF2Comp(props) {
                 setNewEx({ name: '', price: 0, })
                 await axios.put(`http://141.226.241.38:3001/assets/${asset1._id}`, data, obj)
                 alert('הוצאה נוספה')
-            } }else {
-                Alert.alert('  חודש לא תואם')
             }
-
+        } else {
+            Alert.alert('  חודש לא תואם')
         }
+
+    }
 
 
     useEffect(() => {
@@ -56,14 +57,26 @@ function AddF2Comp(props) {
 
 
         <View style={styles.container}>
+
             <SafeAreaView>
-                <View style={styles.back}>
+
+                {Platform.OS === 'ios' ? <View style={styles.back}>
                     <TouchableOpacity onPress={() => props.modalFlag1(false)}>
                         <IconAntDesign name="arrowleft" size={40} color={'white'} />
                     </TouchableOpacity>
-                    <Text style={{ color: "white", paddingTop: 8, paddingLeft: 300 }}>{user.user.username}</Text>
 
-                </View>
+                    <Text style={{ color: "white", paddingTop: 8, paddingLeft: 10, paddingRight: 10 }}>{user.user.username}</Text>
+
+                </View > : <View style={styles.back}>
+                    <Text style={{ color: "white", paddingTop: 8, paddingLeft: 10, paddingRight: 10 }}>{user.user.username}</Text>
+                    <TouchableOpacity onPress={() => props.modalFlag1(false)}>
+                        <IconAntDesign name="arrowleft" size={40} color={'white'} />
+                    </TouchableOpacity>
+
+                </View >
+
+
+                }
             </SafeAreaView>
 
             <View style={styles.container1}>
@@ -84,7 +97,7 @@ function AddF2Comp(props) {
             </View>
 
             <Button
-                title=" הוסף הוצאה נלוות"   
+                title=" הוסף הוצאה נלוות"
                 onPress={getDate}
             />
         </View>
