@@ -1,15 +1,15 @@
-import { View, Text, StyleSheet, SafeAreaView, Platform, Button, TouchableOpacity, Modal, Dimensions } from "react-native";
+import { View, Text, StyleSheet, SafeAreaView, Platform, Button, TouchableOpacity, Modal, Dimensions,Pressable } from "react-native";
 import { useSelector, useDispatch } from 'react-redux';
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
 import React, { useState, useEffect } from 'react';
 import ImageViewer from 'react-native-image-zoom-viewer';
 
 
-
-function ContractImageComp(props) {
+function ContractImage(props) {
     const user = useSelector(state => state.setUser.user)
     const [images, setImages] = useState([])
-    const [modalVisible, setModalVisible] = useState(true)
+    const [modalVisible, setModalVisible] = useState(false)
+
 
     const getImages = () => {
         let arr = []
@@ -17,6 +17,7 @@ function ContractImageComp(props) {
             arr.push({ url: `http://141.226.241.38:3001/${image}` })
         })
         setImages(arr)
+        console.log(images)
     }
 
     const closeModal = () => {
@@ -24,9 +25,10 @@ function ContractImageComp(props) {
         setModalVisible(false)
     }
 
+
+
     useEffect(() => {
         getImages()
-
     }, [props.data.contractImage])
 
     return (
@@ -36,11 +38,10 @@ function ContractImageComp(props) {
             {images.length > 0 ?
                 <View>
 
-                    <Modal visible={modalVisible} transparent={true}>
 
-                        <SafeAreaView>
+                    <SafeAreaView>
+                        {Platform.OS === 'ios' ?
 
-                            {Platform.OS === 'ios' ? 
                             <View style={styles.back}>
                                 <TouchableOpacity onPress={() => closeModal()}>
                                     <IconAntDesign name="arrowleft" size={40} color={'white'} />
@@ -48,9 +49,39 @@ function ContractImageComp(props) {
 
                                 <Text style={{ color: "white", paddingTop: 8, paddingLeft: 10, paddingRight: 10 }}>{user.user.username}</Text>
 
+                            </View > : <View style={styles.back}>
+                                <Text style={{ color: "white", paddingTop: 8, paddingLeft: 10, paddingRight: 10 }}>{user.user.username}</Text>
+                                <TouchableOpacity onPress={() => closeModal()}>
+                                    <IconAntDesign name="arrowleft" size={40} color={'white'} />
+                                </TouchableOpacity>
+
                             </View >
-                             :
+
+
+                        }
+
+                    </SafeAreaView>
+                    <Pressable
+                            onPress={() => setModalVisible(true)}
+                            >
+
+                            <View style={styles.container2}>
+                                <Text style={styles.txt2}>להציג חוזה</Text>
+                            </View>
+                            </Pressable>
+                    <Modal visible={modalVisible} transparent={true}>
+
+                        <SafeAreaView>
+                            {Platform.OS === 'ios' ?
+
                                 <View style={styles.back}>
+                                    <TouchableOpacity onPress={() => closeModal()}>
+                                        <IconAntDesign name="arrowleft" size={40} color={'white'} />
+                                    </TouchableOpacity>
+
+                                    <Text style={{ color: "white", paddingTop: 8, paddingLeft: 10, paddingRight: 10 }}>{user.user.username}</Text>
+
+                                </View > : <View style={styles.back}>
                                     <Text style={{ color: "white", paddingTop: 8, paddingLeft: 10, paddingRight: 10 }}>{user.user.username}</Text>
                                     <TouchableOpacity onPress={() => closeModal()}>
                                         <IconAntDesign name="arrowleft" size={40} color={'white'} />
@@ -60,18 +91,24 @@ function ContractImageComp(props) {
 
 
                             }
+                            <View>
+
+                            </View>
                         </SafeAreaView>
                         <ImageViewer imageUrls={images} />
+
                     </Modal>
 
-                </View> : null}
+                </View>
+                : null}
+
 
 
         </View >
     )
 }
 
-export default ContractImageComp
+export default ContractImage
 
 const diviceWidth = Dimensions.get('window').width
 
@@ -100,11 +137,26 @@ const styles = StyleSheet.create({
         width: diviceWidth,
         justifyContent: 'space-between',
 
-
     },
     container1: {
         flex: 1,
         backgroundColor: '#fff',
+    },
+    container2: {
+        padding: 20,
+        alignItems: "center",
+        marginTop: diviceWidth / 2 - 100,
+       
+      
+    },
+    txt2: {
+        fontSize: 18,
+        fontWeight: 'bold',
+        padding: 20,
+        borderWidth: 2,
+        borderColor: '#5f19cd',
+        borderRadius: 10,
+
     },
 
 

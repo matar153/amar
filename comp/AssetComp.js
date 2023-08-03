@@ -22,7 +22,7 @@ function AssetComp({ route, navigation }) {
   const [flag1, setFlag1] = useState(false)
   const [modalflag, setModalFlag] = useState(false)
   const [modalflag1, setModalFlag1] = useState(false)
-
+  const [conterctModal, setConterctModal] = useState(true)
   const index = route.params.asset.expenses.length
   const getimages = () => {
     const images = []
@@ -312,7 +312,7 @@ function AssetComp({ route, navigation }) {
         </Modal>
 
         <Modal visible={modalflag1}>
-          <ContractImageComp data={route.params.asset} modalFlag1={(data) => setModalFlag1(data)} />
+          <ContractImageComp data={route.params.asset} data1={conterctModal} modal1={(data)=>setConterctModal(data)} modalFlag1={(data) => setModalFlag1(data)} />
         </Modal>
 
       </ScrollView>

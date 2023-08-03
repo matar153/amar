@@ -51,7 +51,7 @@ function AssetsComp({ navigation }) {
     }
 
     useEffect(() => {
-      
+      console.log('filterAssets2', filterAssets2)
     }, [])
 
     const CheckLogOut = async () => {

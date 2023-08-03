@@ -41,6 +41,7 @@ function UpdateAssetComp(props) {
   const date = new Date()
   const month1 = String(date.getMonth() + 1).padStart(2)
   const [newexpenses1, setNewexpenses1] = useState({ exp: [], months: +month1 })
+  const [images333, setImages333] = useState([])
 
   const index = props.data.expenses.length
   const index2 = props.data.expenses.length
@@ -52,6 +53,16 @@ function UpdateAssetComp(props) {
       setImages(images)
     })
   }
+
+  const getImages = () => {
+    let arr = []
+    props.data.contractImage.map((image) => {
+        arr.push({ url: `http://141.226.241.38:3001/${image}` })
+        console.log(image)
+    })
+    setImages333(arr)
+}
+
 
   const cheackF2 = () => {
     if (props.data.expenses2[index11 - 1].months === expenses.months) {
@@ -622,7 +633,7 @@ function UpdateAssetComp(props) {
         </Modal>
 
         <Modal visible={modalflag1}>
-          <ContractImageComp data={props.data} modalFlag1={(data) => setModalFlag1(data)} />
+          <ContractImageComp data={props.data}  modalFlag1={(data) => setModalFlag1(data)} />
         </Modal>
 
 

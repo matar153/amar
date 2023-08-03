@@ -79,7 +79,11 @@ function LoginComp({ navigation }) {
         const obj = { headers: { token: token1.token } }
         const { data } = await axios.get('http://141.226.241.38:3001/assets', obj)
         if (assets.length > 0) {
+            token1.userlogin.id.forEach((id, index) => {
+                const filterAsset1 = data.find(item => item._id === id)
+                dispatch(setfilterAssets1(filterAsset1))
 
+            });
         } else {
             dispatch(setAssets1(data))
             token1.userlogin.id.forEach((id, index) => {
