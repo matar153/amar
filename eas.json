@@ -11,7 +11,7 @@
       }
     },
     "preview3": {
-      "developmentClient": false
+      "developmentClient": true
     },
     "production": {}
   }
